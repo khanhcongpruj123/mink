@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: mink
+      POSTGRES_USER: mink
+      POSTGRES_PASSWORD: mink123
+      PGDATA: /data/postgres
+    volumes:
+      - ~/.mink/postgres:/data/postgres
+    ports:
+      - "5433:5432"
