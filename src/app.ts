@@ -1,8 +1,7 @@
-import express from 'express';
 import 'module-alias/register';
-import * as userRepository from '@repository/user.repository';
 
-import V1Router from "./router/v1/v1.router";
+import express from 'express';
+import V1Router from './router/v1';
 
 // create express app
 const app = express();
