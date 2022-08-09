@@ -2,10 +2,12 @@
   "extends": "@tsconfig/node16/tsconfig.json",
   "exclude": ["./node_modules", "./dist", "./tests/",],
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
-      "@repository/*": ["src/repository/*"]
+      "@router/*": ["router/*"],
+      "@repository/*": ["repository/*"],
+      "@service/*": ["service/*"]
     }
   }
 }

@@ -27,15 +27,19 @@
     "eslint": "^8.21.0",
     "eslint-config-alloy": "^4.6.2",
     "mocha": "^10.0.0",
-    "module-alias": "^2.2.2",
     "prisma": "^4.1.1",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "typescript-module-alias": "^2.2.9"
+    "typescript": "^4.7.4"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "module-alias": "^2.2.2"
+  },
+  "_moduleAliases": {
+    "@repository": "dist/repository",
+    "@router": "dist/router",
+    "@service": "dist/service"
   }
 }
