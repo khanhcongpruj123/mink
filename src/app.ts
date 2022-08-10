@@ -1,10 +1,10 @@
 import "module-alias/register";
 
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import V1Router from "./router/v1";
-import bodyParser from "body-parser";
 import morgan, { StreamOptions } from "morgan";
 import Logger from "./logger";
+import { MinkError, ErrorResponse } from "./error";
 
 // create express app
 const app = express();
@@ -13,8 +13,8 @@ const app = express();
 app.use("/v1", V1Router);
 
 // setup body parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 // setup logger
 const stream: StreamOptions = {
@@ -26,7 +26,6 @@ const skip = () => {
   return env !== "development";
 };
 
-// Build the morgan middleware
 const morganMiddleware = morgan(
   ":method :url :status :res[content-length] - :response-time ms",
   { stream, skip }
@@ -34,7 +33,15 @@ const morganMiddleware = morgan(
 
 app.use(morganMiddleware);
 
-// start server
-app.listen(3000, () => {
-    Logger.info("Server is listening on port 3000!");
+// setup error handler
+// eslint-disable-next-line max-params
+app.use((error: MinkError, request: Request, response: Response, next: NextFunction) => {
+    if (error) {
+       Logger.error(error.stack);
+       response.status(error.status);
+       response.json(ErrorResponse(error.code, error.message));
+    }
 });
+
+// start server
+export default app;
