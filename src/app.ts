@@ -2,9 +2,9 @@ import "module-alias/register";
 
 import express, { NextFunction, Request, Response } from "express";
 import V1Router from "./router/v1";
-import morgan, { StreamOptions } from "morgan";
 import Logger from "./logger";
 import { MinkError, ErrorResponse } from "./error";
+import morganMiddleware from "./middleware/logger.middleware";
 
 // create express app
 const app = express();
@@ -16,20 +16,7 @@ app.use("/v1", V1Router);
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-// setup logger
-const stream: StreamOptions = {
-  write: (message) => Logger.http(message),
-};
 
-const skip = () => {
-  const env = process.env.NODE_ENV || "development";
-  return env !== "development";
-};
-
-const morganMiddleware = morgan(
-  ":method :url :status :res[content-length] - :response-time ms",
-  { stream, skip }
-);
 
 app.use(morganMiddleware);
 
