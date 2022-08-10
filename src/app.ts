@@ -44,6 +44,4 @@ app.use((error: MinkError, request: Request, response: Response, next: NextFunct
 });
 
 // start server
-app.listen(3000, () => {
-    Logger.info("Server is listening on port 3000!");
-});
+export default app;
