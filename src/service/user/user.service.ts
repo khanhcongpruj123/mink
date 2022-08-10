@@ -1,6 +1,7 @@
 import CreateUserCommand from "./createuser.command";
 import bcrypt from 'bcrypt';
 import * as userRepository from '@repository/user.repository';
+import { PasswordIsNotValid, UserAlreadyExists, UsernameIsNotValid } from "../../error";
 
 const USERNAME_REGEX = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/g;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g;
@@ -12,16 +13,16 @@ export const createUser = async (command: CreateUserCommand) => {
     // check exist user
     const existUser = await userRepository.findByUsername(command.username);
     if (existUser) {
-        throw Error("Username is exist");
+        throw UserAlreadyExists;
     }
     // check valid username
     if (!USERNAME_REGEX.test(command.username)) {
-        throw Error("Username must be match with regex");
+        throw UsernameIsNotValid;
     }
 
     // check vaid password
     if (!PASSWORD_REGEX.test(command.password)) {
-        throw Error("Password must be match with regex");
+        throw PasswordIsNotValid;
     }
 
     // hash password
