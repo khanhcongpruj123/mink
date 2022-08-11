@@ -1,9 +1,11 @@
 import bcrypt from 'bcrypt';
-import * as userRepository from '../repository/user.repository';
 import { PasswordIsNotValid, UserAlreadyExists, UsernameIsNotValid } from "../error";
+import { PrismaClient } from '@prisma/client';
 
 const USERNAME_REGEX = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/g;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g;
+
+const prisma = new PrismaClient();
 
 /**
  * create user from username and password
@@ -21,7 +23,11 @@ export const createUser = async (username?: string, password?: string) => {
     }
 
     // check exist user
-    const existUser = await userRepository.findByUsername(username);
+    const existUser = await prisma.user.findUnique({
+        where: {
+            username: username
+        }
+    });
     if (existUser) {
         throw UserAlreadyExists;
     }
@@ -29,8 +35,10 @@ export const createUser = async (username?: string, password?: string) => {
 
     // hash password
     const encodePassword = bcrypt.hashSync(password, 12);
-    return await userRepository.save({
-        username: username,
-        password: encodePassword
+    return await prisma.user.create({
+        data: {
+            username: username,
+            password: encodePassword
+        }
     });
 };

@@ -1,15 +1,15 @@
-import * as userService from '../../../service/user.service';
+import * as authService from '../../../service/auth.service';
 import { NextFunction, Request, Response, Router } from 'express';
 
 const router = Router();
 
 router.post("/auth/sign-up", async (request: Request, response: Response, next: NextFunction) => {
     try {
-        const user = await userService.createUser(request.body.username, request.body.password);
+        await authService.signUp(request.body.username, request.body.password);
+        response.sendStatus(204);
     } catch (error) {
         next(error);
     }
-    response.status(204);
 });
 
 export default router;
