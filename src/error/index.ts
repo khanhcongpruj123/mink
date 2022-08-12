@@ -28,3 +28,6 @@ export const ErrorResponse = (code: string, message: string) : ErrorResponse => 
 export const UserAlreadyExists = new MinkError(400, "USER_ALREADY_EXISTS", "User already exists");
 export const UsernameIsNotValid = new MinkError(400, "USERNAME_NOT_VALID", "Username is not valid");
 export const PasswordIsNotValid = new MinkError(400, "PASSWORD_NOT_VALID", "Password is not valid");
+export const UserNotFound = new MinkError(400, "USER_NOT_FOUND", "User not found");
+export const PasswordIsWrong = new MinkError(400, "PASSWORD_IS_WRONG", "Password is wrong");
+export const UserIsLoggout = new MinkError(400, "USER_IS_LOGGOUT", "User is loggout");
