@@ -11,6 +11,7 @@
     "build": "tsc",
     "start": "ts-node ./src/server.ts",
     "migrate": "prisma migrate dev",
+    "lint:fix": "eslint . --fix",
     "test": "mocha -r ts-node/register './tests/**/*.ts'"
   },
   "devDependencies": {
