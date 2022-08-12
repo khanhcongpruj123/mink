@@ -15,3 +15,11 @@ export const createDefaultUserProfile = async (userId: number) => {
         }
     });
 };
+
+export const getByUserId = (userId: number) => {
+    return prisma.userProfile.findUnique({
+        where: {
+            userId: userId
+        }
+    });
+};

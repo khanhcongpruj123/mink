@@ -3,11 +3,11 @@
  */
 import { Router } from 'express';
 import AuthRouter from "./auth/auth.router";
-import bodyParser from "body-parser";
+import UserRouter from './user/user.router';
 
 const router = Router();
 
-router.use(bodyParser.json());
 router.use(AuthRouter);
+router.use(UserRouter);
 
 export default router;
