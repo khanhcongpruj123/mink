@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .ts",
     "build": "tsc",
     "start": "ts-node ./src/server.ts",
+    "migrate": "prisma migrate dev",
     "test": "mocha -r ts-node/register './tests/**/*.ts'"
   },
   "devDependencies": {
