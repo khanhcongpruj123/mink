@@ -26,22 +26,22 @@ const jwtOptions: StrategyOptions = {
     algorithms: ["HS256"]
 };
 passport.use("jwt", new JwtStrategy(jwtOptions, async (payload: any, done: (error: any, user?: any, info?: any) => void) => {
-    const loginSession = await loginSessionService.getById(payload.loginSessionId);
-        .then(loginSession => {
-            if (!loginSession) {
-                throw UserIsLoggout;
-            }
-            return userService.getUserByLoginSessionId(loginSession.id);
-        })
-        .then(user => {
-            done(null, {
-                ...user,
-                loginSessionId: 
-            });
-        })
-        .catch((err) => {
-            done(err, null);
-        });
+    // const loginSession = await loginSessionService.getById(payload.loginSessionId);
+    //     .then(loginSession => {
+    //         if (!loginSession) {
+    //             throw UserIsLoggout;
+    //         }
+    //         return userService.getUserByLoginSessionId(loginSession.id);
+    //     })
+    //     .then(user => {
+    //         done(null, {
+    //             ...user,
+    //             loginSessionId: 
+    //         });
+    //     })
+    //     .catch((err) => {
+    //         done(err, null);
+    //     });
 }));
 
 export default passport;

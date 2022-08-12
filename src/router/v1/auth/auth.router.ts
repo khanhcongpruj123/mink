@@ -28,7 +28,7 @@ router.post("/auth/login", async (request: Request, response: Response, next: Ne
 });
 
 router.post("/auth/loggout", (request: Request, response: Response, next: NextFunction) => {
-    authService.loggout(request.user!!.id)
+    // authService.loggout(request.user!!.id)
 });
 
 export default router;
