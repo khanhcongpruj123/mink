@@ -22,6 +22,7 @@ router.post(
 router.post(
   "/auth/login",
   BasicRouter(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async (request: Request, response: Response, next: NextFunction) => {
       const loginSession = await authService.login(
         request.body.username,
@@ -43,6 +44,7 @@ router.post(
     async (
       request: RequestWithUser,
       response: Response,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       next: NextFunction
     ) => {
       await authService.loggout(request.user.loginSessionId);

@@ -18,12 +18,12 @@ interface ErrorResponse {
   message: string;
 }
 
-export const ErrorResponse = (code: string, message: string): ErrorResponse => {
+export function ErrorResponse(code: string, message: string): ErrorResponse {
   return {
     code: code,
     message: message,
   };
-};
+}
 
 export const UserAlreadyExists = new MinkError(
   StatusCodes.BAD_REQUEST,

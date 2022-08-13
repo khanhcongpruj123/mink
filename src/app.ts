@@ -8,7 +8,7 @@ import redisClient from "@redis";
 import Logger from "@lib/logger";
 
 // connect to redis
-redisClient.connect().then((v) => {
+redisClient.connect().then(() => {
   Logger.info("Redis connected!");
 });
 
