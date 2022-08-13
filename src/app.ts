@@ -20,6 +20,8 @@ new PrismaClient().$connect().then(() => {
   Logger.info("Database connected!");
 });
 
+// TODO validate enviroment variable
+
 // create express app
 const app = express();
 
