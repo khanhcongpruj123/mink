@@ -1,6 +1,6 @@
-import { AuthenticationError } from "../error";
-import { NextFunction, Request, Response, Router, RequestHandler } from "express";
-import authMiddleware from '../middleware/auth.middleware';
+import { AuthenticationError } from "@error";
+import { NextFunction, Request, Response, Router } from "express";
+import authMiddleware from '@middleware/auth.middleware';
 
 export type RouterHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>;
 

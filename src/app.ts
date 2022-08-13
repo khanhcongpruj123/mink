@@ -1,11 +1,11 @@
 import "module-alias/register";
 
 import express from "express";
-import V1Router from "./router/v1";
-import loggerMiddleware from "./middleware/logger.middleware";
-import errorMiddleware from "./middleware/error.middleware";
-import redisClient from './redis';
-import Logger from "./lib/logger";
+import V1Router from "@router/v1";
+import loggerMiddleware from "@middleware/logger.middleware";
+import errorMiddleware from "@middleware/error.middleware";
+import redisClient from '@redis';
+import Logger from "@lib/logger";
 
 declare global {
   namespace Express {

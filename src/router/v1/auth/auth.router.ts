@@ -1,7 +1,7 @@
-import * as authService from '../../../service/auth.service';
+import * as authService from '@service/auth.service';
 import { NextFunction, Request, Response, Router } from 'express';
-import { createAccessToken, createRefreshToken } from '../../../lib/jwt';
-import { AuthRouter, BasicRouter } from '../../../core/router';
+import { createAccessToken, createRefreshToken } from '@lib/jwt';
+import { AuthRouter, BasicRouter } from '@core/router';
 import { StatusCodes } from 'http-status-codes';
 
 const router = Router();

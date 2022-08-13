@@ -1,5 +1,5 @@
 import { createClient } from '@redis/client';
-import Logger from '../lib/logger';
+import Logger from '@lib/logger';
 
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD || "mink123";
 const REDIS_HOST = process.env.REDIS_HOST || "localhost";

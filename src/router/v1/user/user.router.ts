@@ -1,6 +1,6 @@
-import * as userProfileService from '../../../service/userprofile.service';
+import * as userProfileService from '@service/userprofile.service';
 import { NextFunction, Request, Response, Router } from 'express';
-import { BasicRouter } from '../../../core/router';
+import { BasicRouter } from '@core/router';
 
 const router = Router();
 
