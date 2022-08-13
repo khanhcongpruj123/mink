@@ -1,5 +1,5 @@
 import http from "http";
-import Logger from "./logger";
+import Logger from "./lib/logger";
 import app from './app';
 
 // create server
