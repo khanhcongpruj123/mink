@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import { ErrorResponse } from "@interfaces/error.interface";
 /**
  * Error model for project
  */
@@ -11,11 +12,6 @@ export class MinkError extends Error {
     this.statusCode = status;
     this.code = code;
   }
-}
-
-interface ErrorResponse {
-  code: string;
-  message: string;
 }
 
 export function ErrorResponse(code: string, message: string): ErrorResponse {
