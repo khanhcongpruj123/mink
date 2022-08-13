@@ -6,10 +6,16 @@ import loggerMiddleware from "@middleware/logger.middleware";
 import errorMiddleware from "@middleware/error.middleware";
 import redisClient from "@redis";
 import Logger from "@lib/logger";
+import { PrismaClient } from "@prisma/client";
 
 // connect to redis
 redisClient.connect().then(() => {
   Logger.info("Redis connected!");
+});
+
+// connect to database
+new PrismaClient().$connect().then(() => {
+  Logger.info("Database connected!");
 });
 
 // create express app
