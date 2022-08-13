@@ -1,7 +1,7 @@
-import * as userProfileService from "@service/userprofile.service";
+import * as userProfileService from "@services/userprofile.service";
 import { NextFunction, Response, Router } from "express";
 import { BasicRouter } from "@core/router";
-import { RequestWithUser } from "@/interface/auth.interface";
+import { RequestWithUser } from "@interfaces/auth.interface";
 
 const router = Router();
 

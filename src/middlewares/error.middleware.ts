@@ -1,6 +1,6 @@
-import { MinkError, ErrorResponse } from "@error";
+import { MinkError, ErrorResponse } from "@core/error";
 import { Request, Response, NextFunction } from "express";
-import Logger from "@lib/logger";
+import Logger from "@libs/logger";
 import { StatusCodes } from "http-status-codes";
 
 // eslint-disable-next-line max-params

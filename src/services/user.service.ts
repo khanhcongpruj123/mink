@@ -5,7 +5,7 @@ import {
   UserAlreadyExists,
   UsernameIsNotValid,
   UserNotFound,
-} from "../error";
+} from "@core/error";
 import { PrismaClient } from "@prisma/client";
 
 const USERNAME_REGEX =

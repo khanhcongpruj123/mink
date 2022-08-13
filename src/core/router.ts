@@ -1,6 +1,6 @@
-import { AuthenticationError } from "@error";
+import { AuthenticationError } from "@core/error";
 import { NextFunction, Request, Response, Router } from "express";
-import authMiddleware from "@middleware/auth.middleware";
+import authMiddleware from "@middlewares/auth.middleware";
 
 export type RouterHandler = (
   req: Request,

@@ -23,14 +23,12 @@
     "paths": {
       "@/*": ["*"],
       "@core/*": ["core/*"],
-      "@middleware/*": ["middleware/*"],
-      "@router/*": ["router/*"],
-      "@service/*": ["service/*"],
-      "@lib/*": ["lib/*"],
-      "@error/*": ["error/*"],
-      "@error": ["error"],
-      "@redis": ["redis"],
-      "@interface/*": ["interface/*"]
+      "@middlewares/*": ["middlewares/*"],
+      "@routes/*": ["routes/*"],
+      "@services/*": ["services/*"],
+      "@libs/*": ["libs/*"],
+      "@cache/*": ["cache/*"],
+      "@interfaces/*": ["interfaces/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],

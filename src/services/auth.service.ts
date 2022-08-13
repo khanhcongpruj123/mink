@@ -1,10 +1,10 @@
 import * as userService from "./user.service";
 import * as userProfileService from "./userprofile.service";
 import * as loginSessionService from "./loginsession.service";
-import redisClient from "../redis";
+import redisClient from "@cache/redis";
 import { PrismaClient } from "@prisma/client";
-import { UserIsLoggout } from "../error";
-import { LoginSessionInfo } from "@/interface/auth.interface";
+import { UserIsLoggout } from "@core/error";
+import { LoginSessionInfo } from "@interfaces/auth.interface";
 
 const prisma = new PrismaClient();
 

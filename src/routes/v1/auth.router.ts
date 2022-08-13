@@ -1,9 +1,9 @@
-import * as authService from "@service/auth.service";
+import * as authService from "@services/auth.service";
 import { NextFunction, Request, Response, Router } from "express";
-import { createAccessToken, createRefreshToken } from "@lib/jwt";
+import { createAccessToken, createRefreshToken } from "@libs/jwt";
 import { AuthRouter, BasicRouter } from "@core/router";
 import { StatusCodes } from "http-status-codes";
-import { RequestWithUser } from "@/interface/auth.interface";
+import { RequestWithUser } from "@interfaces/auth.interface";
 
 const router = Router();
 

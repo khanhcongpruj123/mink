@@ -1,11 +1,11 @@
-import { ACCESS_TOKEN_SECRET } from "@lib/jwt";
+import { ACCESS_TOKEN_SECRET } from "@libs/jwt";
 import {
   Strategy as JwtStrategy,
   StrategyOptions,
   ExtractJwt,
 } from "passport-jwt";
 import passport from "passport";
-import * as authService from "@service/auth.service";
+import * as authService from "@services/auth.service";
 
 // setup jwt strategy
 const jwtOptions: StrategyOptions = {
