@@ -1,6 +1,4 @@
-import { NextFunction, Request, Response } from "express";
-import { ACCESS_TOKEN_SECRET, getAccessToken } from "../lib/jwt.utils";
-import { Strategy as UsernameAndPasswordStrategy, IVerifyOptions } from 'passport-local';
+import { ACCESS_TOKEN_SECRET } from "../lib/jwt.utils";
 import { Strategy as JwtStrategy, StrategyOptions, ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
 import * as userService from '../service/user.service';
