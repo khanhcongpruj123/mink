@@ -4,21 +4,11 @@ import express from "express";
 import V1Router from "@router/v1";
 import loggerMiddleware from "@middleware/logger.middleware";
 import errorMiddleware from "@middleware/error.middleware";
-import redisClient from '@redis';
+import redisClient from "@redis";
 import Logger from "@lib/logger";
 
-declare global {
-  namespace Express {
-    interface User {
-      id: number,
-      username: string,
-      loginSessionId: string
-    }
-  }
-}
-
 // connect to redis
-redisClient.connect().then(v => {
+redisClient.connect().then((v) => {
   Logger.info("Redis connected!");
 });
 

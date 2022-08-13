@@ -1,16 +1,26 @@
-import * as userProfileService from '@service/userprofile.service';
-import { NextFunction, Request, Response, Router } from 'express';
-import { BasicRouter } from '@core/router';
+import * as userProfileService from "@service/userprofile.service";
+import { NextFunction, Request, Response, Router } from "express";
+import { BasicRouter } from "@core/router";
+import { RequestWithUser } from "@/interface/auth.interface";
 
 const router = Router();
 
-router.get("/user/profile", BasicRouter( async (request: Request, response: Response, next: NextFunction) => {
-    const userProfile = await userProfileService.getByUserId(request.user!!.id);
-    response.json({
+router.get(
+  "/user/profile",
+  BasicRouter(
+    async (
+      request: RequestWithUser,
+      response: Response,
+      next: NextFunction
+    ) => {
+      const userProfile = await userProfileService.getByUserId(request.user.id);
+      response.json({
         id: request.user?.id,
         firstName: userProfile?.firstName,
-        lastName: userProfile?.lastName
-    });
-}));
+        lastName: userProfile?.lastName,
+      });
+    }
+  )
+);
 
 export default router;

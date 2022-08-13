@@ -29,7 +29,8 @@
       "@lib/*": ["lib/*"],
       "@error/*": ["error/*"],
       "@error": ["error"],
-      "@redis": ["redis"]
+      "@redis": ["redis"],
+      "@interface/*": ["interface/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
