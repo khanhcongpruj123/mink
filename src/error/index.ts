@@ -31,3 +31,4 @@ export const PasswordIsNotValid = new MinkError(400, "PASSWORD_NOT_VALID", "Pass
 export const UserNotFound = new MinkError(400, "USER_NOT_FOUND", "User not found");
 export const PasswordIsWrong = new MinkError(400, "PASSWORD_IS_WRONG", "Password is wrong");
 export const UserIsLoggout = new MinkError(400, "USER_IS_LOGGOUT", "User is loggout");
+export const AuthenticationError = new MinkError(401, "AUTHENTICATION_ERROR", "You must be auth");
