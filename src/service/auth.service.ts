@@ -55,11 +55,11 @@ export const getLoginSessionInfoById = async (loginSessionId: string) => {
             loginSessionId: loginSession.id,
             username: user?.username
         };
-        saveLoginSession(loginSessionInfo);
+        saveLoginSessionInfo(loginSessionInfo);
         return loginSessionInfo;
     }
 };
 
-export const saveLoginSession = (currentUser: LoginSessionInfo) => {
+export const saveLoginSessionInfo = (currentUser: LoginSessionInfo) => {
     return redisClient.set(`LOGIN_SESSION:${currentUser.loginSessionId}`, JSON.stringify(currentUser));
 };
