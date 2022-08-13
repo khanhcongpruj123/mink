@@ -7,6 +7,8 @@ import errorMiddleware from "@middleware/error.middleware";
 import redisClient from "@redis";
 import Logger from "@lib/logger";
 import { PrismaClient } from "@prisma/client";
+import compression from "compression";
+import helmet from "helmet";
 
 // connect to redis
 redisClient.connect().then(() => {
@@ -24,6 +26,8 @@ const app = express();
 // setup body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(compression());
+app.use(helmet());
 
 // setup logger middleware
 app.use(loggerMiddleware);
