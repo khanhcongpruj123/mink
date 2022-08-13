@@ -12,3 +12,11 @@ services:
       - ~/.mink/postgres:/data/postgres
     ports:
       - "5433:5432"
+  redis:
+    image: bitnami/redis:7.0.4
+    volumes:
+      - ~/.mink/redis:/bitnami/redis/data
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=mink123
