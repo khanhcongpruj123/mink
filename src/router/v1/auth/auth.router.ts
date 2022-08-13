@@ -1,6 +1,6 @@
 import * as authService from '../../../service/auth.service';
 import { NextFunction, Request, Response, Router } from 'express';
-import { createAccessToken, createRefreshToken } from '../../../lib/jwt.utils';
+import { createAccessToken, createRefreshToken } from '../../../lib/jwt';
 import { AuthRouter, BasicRouter } from '../../../core/router';
 import { StatusCodes } from 'http-status-codes';
 
