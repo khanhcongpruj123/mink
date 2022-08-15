@@ -2,7 +2,6 @@ import * as userProfileService from "@services/userprofile.service";
 import { NextFunction, Response, Router } from "express";
 import { BasicRouter } from "@core/router";
 import { RequestWithUser } from "@interfaces/auth.interface";
-import HttpStatusCode from "http-status-codes";
 
 const router = Router();
 
