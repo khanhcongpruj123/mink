@@ -9,6 +9,7 @@ import Logger from "@libs/logger";
 import { PrismaClient } from "@prisma/client";
 import compression from "compression";
 import helmet from "helmet";
+import multer from "multer";
 
 // connect to redis
 redisClient.connect().then(() => {
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 app.use(helmet());
+app.use(multer().any());
 
 // setup logger middleware
 app.use(loggerMiddleware);

@@ -28,7 +28,8 @@
       "@services/*": ["services/*"],
       "@libs/*": ["libs/*"],
       "@cache/*": ["cache/*"],
-      "@interfaces/*": ["interfaces/*"]
+      "@interfaces/*": ["interfaces/*"],
+      "@dtos/*": ["dtos/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],

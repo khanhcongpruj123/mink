@@ -3,6 +3,10 @@ import * as userService from "@services/user.service";
 import { NextFunction, Response, Router } from "express";
 import { BasicRouter } from "@core/router";
 import { RequestWithUser } from "@interfaces/auth.interface";
+import { Express } from "express";
+import _ from "lodash";
+// import * as uploadcareService from "@services/uploadcare.service";
+import { v4 } from "uuid";
 
 const router = Router();
 
@@ -43,11 +47,26 @@ router.patch(
       if (request.body.lastName) {
         userProfile.lastName = request.body.lastName;
       }
+
+      // update avatar
+      const avatar = _.find(
+        request.files,
+        (f: Express.Multer.File) => f.fieldname === "avatar"
+      ) as Express.Multer.File;
+      if (avatar) {
+        // await uploadcareService.upload(
+        //   avatar.buffer,
+        //   `/userprofile/${v4()}.jpg`
+        // );
+      }
       await userProfileService.update(userProfile);
       response.json({
         id: request.user?.id,
-        firstName: userProfile?.firstName,
-        lastName: userProfile?.lastName,
+        userProfile: {
+          id: userProfile.id,
+          firstName: userProfile.firstName,
+          lastName: userProfile.lastName,
+        },
       });
     }
   )

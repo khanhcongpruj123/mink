@@ -6,6 +6,7 @@ import { StatusCodes } from "http-status-codes";
 import { RequestWithUser } from "@interfaces/auth.interface";
 import validatorMiddleware from "@/middlewares/validator.middleware";
 import { RegisterRequest } from "@/dtos/request/register.request";
+import { LoginRequest } from "@/dtos/request/login.request";
 
 const router = Router();
 
@@ -24,6 +25,7 @@ router.post(
 
 router.post(
   "/auth/login",
+  validatorMiddleware(LoginRequest),
   BasicRouter(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async (request: Request, response: Response, next: NextFunction) => {
