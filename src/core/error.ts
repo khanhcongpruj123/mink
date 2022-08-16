@@ -56,3 +56,7 @@ export const AuthenticationError = new MinkError(
   "UNAUTHORIZED",
   "You must be auth"
 );
+
+export const BadRequest = (message: string): MinkError => {
+  return new MinkError(StatusCodes.BAD_REQUEST, "BAD_REQUEST", message);
+};

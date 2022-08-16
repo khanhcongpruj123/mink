@@ -4,11 +4,14 @@ import { createAccessToken, createRefreshToken } from "@libs/jwt";
 import { AuthRouter, BasicRouter } from "@core/router";
 import { StatusCodes } from "http-status-codes";
 import { RequestWithUser } from "@interfaces/auth.interface";
+import validatorMiddleware from "@/middlewares/validator.middleware";
+import { RegisterRequest } from "@/dtos/request/register.request";
 
 const router = Router();
 
 router.post(
   "/auth/register",
+  validatorMiddleware(RegisterRequest),
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       await authService.register(request.body.username, request.body.password);

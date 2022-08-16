@@ -1,4 +1,5 @@
 import * as userProfileService from "@services/userprofile.service";
+import * as userService from "@services/user.service";
 import { NextFunction, Response, Router } from "express";
 import { BasicRouter } from "@core/router";
 import { RequestWithUser } from "@interfaces/auth.interface";
@@ -14,11 +15,14 @@ router.get(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       next: NextFunction
     ) => {
-      const userProfile = await userProfileService.getByUserId(request.user.id);
+      const user = await userService.getUserById(request.user.id);
       response.json({
         id: request.user?.id,
-        firstName: userProfile?.firstName,
-        lastName: userProfile?.lastName,
+        userProfile: {
+          id: user.userProfile.id,
+          firstName: user.userProfile.firstName,
+          lastName: user.userProfile.lastName,
+        },
       });
     }
   )
