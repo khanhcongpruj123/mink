@@ -6,6 +6,10 @@ import { RequestWithUser } from "@interfaces/auth.interface";
 import { Express } from "express";
 import _ from "lodash";
 import { v4 } from "uuid";
+import { uploadImage } from "@/services/image.service";
+
+const IMAGE_SERVER_HOST = process.env.IMAGE_SERVER_HOST || "localhost";
+const IMAGE_SERVER_PORT = process.env.IMAGE_SERVER_PORT || 8080;
 
 const router = Router();
 
@@ -25,6 +29,7 @@ router.get(
           id: user.userProfile.id,
           firstName: user.userProfile.firstName,
           lastName: user.userProfile.lastName,
+          avatar: `http://${IMAGE_SERVER_HOST}:${IMAGE_SERVER_PORT}/${user.userProfile.avatar}`,
         },
       });
     }
@@ -54,6 +59,8 @@ router.patch(
       ) as Express.Multer.File;
       if (avatar) {
         // TODO upload avatar save save url
+        const uploadRes = await uploadImage(avatar.buffer, avatar.originalname);
+        userProfile.avatar = uploadRes.data.fileName;
       }
       await userProfileService.update(userProfile);
       response.json({
@@ -62,6 +69,7 @@ router.patch(
           id: userProfile.id,
           firstName: userProfile.firstName,
           lastName: userProfile.lastName,
+          avatar: `http://${IMAGE_SERVER_HOST}:${IMAGE_SERVER_PORT}/${userProfile.avatar}`,
         },
       });
     }
