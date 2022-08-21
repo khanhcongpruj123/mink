@@ -19,7 +19,6 @@ github.com/onsi/ginkgo v1.8.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+W
 github.com/onsi/gomega v1.5.0/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=
 github.com/pierrre/compare v1.0.2 h1:k4IUsHgh+dbcAOIWCfxVa/7G6STjADH2qmhomv+1quc=
 github.com/pierrre/compare v1.0.2/go.mod h1:8UvyRHH+9HS8Pczdd2z5x/wvv67krDwVxoOndaIIDVU=
-github.com/pierrre/githubhook v1.0.0 h1:d/q1z0VsCjISXlwsoaeEjrA5QuIEMp/gaHYLcmUp8jI=
 github.com/pierrre/githubhook v1.0.0/go.mod h1:WKsXfGU8AOGsc705EHZC/qMzK74Hfbz4HPrna4Nevqo=
 github.com/pierrre/imageserver v0.0.0-20190609201707-8c89cbc7ecdb h1:5DxEm3PipHksgST5ZOWI0K3QnldZgG3J1NaiP8xoNPM=
 github.com/pierrre/imageserver v0.0.0-20190609201707-8c89cbc7ecdb/go.mod h1:feeVcPq5T3WpjnsZc5dZfxf956HXOz2ziuik8W1rEEc=

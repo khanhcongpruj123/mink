@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/disintegration/gift v1.2.1
 	github.com/google/uuid v1.3.0
-	github.com/pierrre/githubhook v1.0.0
 	github.com/pierrre/imageserver v0.0.0-20190609201707-8c89cbc7ecdb
 )
 

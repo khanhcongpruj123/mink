@@ -14,7 +14,6 @@ import (
 
 	"github.com/disintegration/gift"
 	"github.com/google/uuid"
-	"github.com/pierrre/githubhook"
 	"github.com/pierrre/imageserver"
 	imageserver_cache "github.com/pierrre/imageserver/cache"
 	imageserver_cache_memory "github.com/pierrre/imageserver/cache/memory"
@@ -94,23 +93,8 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
     // write this byte array to our temporary file
     uploadFile.Write(fileBytes)
     // return that we have successfully uploaded our file!
-    fmt.Fprintf(w, "Successfully Uploaded File\n")
-}
-
-func newGitHubWebhookHTTPHandler() http.Handler {
-	if flagGitHubWebhookSecret == "" {
-		return nil
-	}
-	return &githubhook.Handler{
-		Secret: flagGitHubWebhookSecret,
-		Delivery: func(event string, deliveryID string, payload interface{}) {
-			if event == "push" {
-				time.AfterFunc(5*time.Second, func() {
-					os.Exit(0)
-				})
-			}
-		},
-	}
+    w.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(w, "{\"fileName\": \"" + newFileName +"\"}")
 }
 
 func newImageHTTPHandler() http.Handler {
