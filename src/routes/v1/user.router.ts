@@ -5,11 +5,9 @@ import { BasicRouter } from "@core/router";
 import { RequestWithUser } from "@interfaces/auth.interface";
 import { Express } from "express";
 import _ from "lodash";
-import { v4 } from "uuid";
-import { uploadImage } from "@/services/image.service";
+import { getImageURL, uploadImage } from "@/services/image.service";
 
-const IMAGE_SERVER_HOST = process.env.IMAGE_SERVER_HOST || "localhost";
-const IMAGE_SERVER_PORT = process.env.IMAGE_SERVER_PORT || 8080;
+const AVATAR_FIELD_NAME = "avatar";
 
 const router = Router();
 
@@ -29,7 +27,7 @@ router.get(
           id: user.userProfile.id,
           firstName: user.userProfile.firstName,
           lastName: user.userProfile.lastName,
-          avatar: `http://${IMAGE_SERVER_HOST}:${IMAGE_SERVER_PORT}/${user.userProfile.avatar}`,
+          avatar: getImageURL(user.userProfile.avatar),
         },
       });
     }
@@ -55,10 +53,9 @@ router.patch(
       // update avatar
       const avatar = _.find(
         request.files,
-        (f: Express.Multer.File) => f.fieldname === "avatar"
+        (f: Express.Multer.File) => f.fieldname === AVATAR_FIELD_NAME
       ) as Express.Multer.File;
       if (avatar) {
-        // TODO upload avatar save save url
         const uploadRes = await uploadImage(avatar.buffer, avatar.originalname);
         userProfile.avatar = uploadRes.data.fileName;
       }
@@ -69,7 +66,7 @@ router.patch(
           id: userProfile.id,
           firstName: userProfile.firstName,
           lastName: userProfile.lastName,
-          avatar: `http://${IMAGE_SERVER_HOST}:${IMAGE_SERVER_PORT}/${userProfile.avatar}`,
+          avatar: getImageURL(userProfile.avatar),
         },
       });
     }
