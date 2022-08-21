@@ -5,7 +5,6 @@ import { BasicRouter } from "@core/router";
 import { RequestWithUser } from "@interfaces/auth.interface";
 import { Express } from "express";
 import _ from "lodash";
-// import * as uploadcareService from "@services/uploadcare.service";
 import { v4 } from "uuid";
 
 const router = Router();
@@ -54,10 +53,7 @@ router.patch(
         (f: Express.Multer.File) => f.fieldname === "avatar"
       ) as Express.Multer.File;
       if (avatar) {
-        // await uploadcareService.upload(
-        //   avatar.buffer,
-        //   `/userprofile/${v4()}.jpg`
-        // );
+        // TODO upload avatar save save url
       }
       await userProfileService.update(userProfile);
       response.json({
