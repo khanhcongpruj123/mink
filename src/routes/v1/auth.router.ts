@@ -4,9 +4,9 @@ import { createAccessToken, createRefreshToken } from "@libs/jwt";
 import { AuthRouter, BasicRouter } from "@core/router";
 import { StatusCodes } from "http-status-codes";
 import { RequestWithUser } from "@interfaces/auth.interface";
-import validatorMiddleware from "@/middlewares/validator.middleware";
-import { RegisterRequest } from "@/dtos/request/register.request";
-import { LoginRequest } from "@/dtos/request/login.request";
+import validatorMiddleware from "@middlewares/validator.middleware";
+import { RegisterRequest } from "@dtos/request/register.request";
+import { LoginRequest } from "@dtos/request/login.request";
 
 const router = Router();
 

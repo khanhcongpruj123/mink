@@ -3,11 +3,14 @@ import * as userService from "@services/user.service";
 import { NextFunction, Response, Router } from "express";
 import { BasicRouter } from "@core/router";
 import { RequestWithUser } from "@interfaces/auth.interface";
-import { Express } from "express";
+import express from "express";
 import _ from "lodash";
-import { getImageURL, uploadImage } from "@/services/image.service";
+import { getImageURL, uploadImage } from "@services/image.service";
+import multer from "multer";
+import { AvatarSizeIsTooLarge, CannotUpdateAvartar } from "@core/error";
 
 const AVATAR_FIELD_NAME = "avatar";
+const AVATAR_LIMIT_SIZE = 100 * 1000; // bytes
 
 const router = Router();
 
@@ -51,14 +54,25 @@ router.patch(
       }
 
       // update avatar
+      // find avatar file
       const avatar = _.find(
         request.files,
         (f: Express.Multer.File) => f.fieldname === AVATAR_FIELD_NAME
       ) as Express.Multer.File;
+
       if (avatar) {
+        if (!checkAvatarSize(avatar)) {
+          throw AvatarSizeIsTooLarge;
+        }
+        // upload to resource server
         const uploadRes = await uploadImage(avatar.buffer, avatar.originalname);
-        userProfile.avatar = uploadRes.data.fileName;
+        if (uploadRes.data.fileName) {
+          userProfile.avatar = uploadRes.data.fileName;
+        } else {
+          throw CannotUpdateAvartar;
+        }
       }
+      // up-to-date user profile
       await userProfileService.update(userProfile);
       response.json({
         id: request.user?.id,
@@ -72,5 +86,13 @@ router.patch(
     }
   )
 );
+
+/**
+ * Anti large image
+ * @param avatar : user avatar
+ */
+const checkAvatarSize = (avatar: Express.Multer.File) => {
+  return avatar.size <= AVATAR_LIMIT_SIZE;
+};
 
 export default router;

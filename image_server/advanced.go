@@ -61,7 +61,6 @@ func startHTTPServer() {
 func newHTTPHandler() http.Handler {
 	mux := http.NewServeMux()
 	mux.Handle("/", http.StripPrefix("/", newImageHTTPHandler()))
-	mux.Handle("/favicon.ico", http.NotFoundHandler())
 	mux.HandleFunc("/upload", uploadFile)
 	return mux
 }

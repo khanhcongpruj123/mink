@@ -21,13 +21,12 @@
     "importHelpers": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
       "@core/*": ["core/*"],
       "@middlewares/*": ["middlewares/*"],
       "@routes/*": ["routes/*"],
-      "@services/*": ["services/*"],
       "@libs/*": ["libs/*"],
       "@cache/*": ["cache/*"],
+      "@services/*": ["services/*"],
       "@interfaces/*": ["interfaces/*"],
       "@dtos/*": ["dtos/*"]
     }
