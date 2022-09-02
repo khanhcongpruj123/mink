@@ -3,10 +3,8 @@ import * as userService from "@services/user.service";
 import { NextFunction, Response, Router } from "express";
 import { BasicRouter } from "@core/router";
 import { RequestWithUser } from "@interfaces/auth.interface";
-import express from "express";
 import _ from "lodash";
 import { getImageURL, uploadImage } from "@services/image.service";
-import multer from "multer";
 import { AvatarSizeIsTooLarge, CannotUpdateAvartar } from "@core/error";
 
 const AVATAR_FIELD_NAME = "avatar";
