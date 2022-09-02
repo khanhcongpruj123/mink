@@ -56,3 +56,19 @@ export const AuthenticationError = new MinkError(
   "UNAUTHORIZED",
   "You must be auth"
 );
+
+export const CannotUpdateAvartar = new MinkError(
+  StatusCodes.INTERNAL_SERVER_ERROR,
+  "CAN_NOT_UPDATE_AVATAR",
+  "Can not update avatar"
+);
+
+export const AvatarSizeIsTooLarge = new MinkError(
+  StatusCodes.BAD_REQUEST,
+  "AVARTAR_SIZE_IS_TOO_LARGE",
+  "Avatar size is too large"
+);
+
+export const BadRequest = (message: string): MinkError => {
+  return new MinkError(StatusCodes.BAD_REQUEST, "BAD_REQUEST", message);
+};

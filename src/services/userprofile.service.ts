@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, UserProfile } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -21,5 +21,14 @@ export const getByUserId = (userId: number) => {
     where: {
       userId: userId,
     },
+  });
+};
+
+export const update = (userProfile: UserProfile) => {
+  return prisma.userProfile.update({
+    where: {
+      id: userProfile.id,
+    },
+    data: userProfile,
   });
 };

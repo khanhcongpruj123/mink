@@ -21,14 +21,14 @@
     "importHelpers": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
       "@core/*": ["core/*"],
       "@middlewares/*": ["middlewares/*"],
       "@routes/*": ["routes/*"],
-      "@services/*": ["services/*"],
       "@libs/*": ["libs/*"],
       "@cache/*": ["cache/*"],
-      "@interfaces/*": ["interfaces/*"]
+      "@services/*": ["services/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@dtos/*": ["dtos/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],

@@ -81,6 +81,9 @@ export const getUserById = (userId: number) => {
     where: {
       id: userId,
     },
+    include: {
+      userProfile: true,
+    },
   });
 };
 
