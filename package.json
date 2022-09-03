@@ -12,7 +12,10 @@
     "start": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec \"ts-node -r tsconfig-paths/register ./src/server.ts\"",
     "migrate": "prisma migrate dev",
     "lint:fix": "eslint . --ext .ts --fix",
-    "test": "mocha -r ts-node/register -r tsconfig-paths/register './tests/**/*.ts'"
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register './tests/**/*.ts'",
+    "db:migrate": "prisma migrate dev",
+    "db:pull": "prisma pull db",
+    "db:generate": "prisma generate"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",

@@ -11,24 +11,53 @@ datasource db {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  username     String        @unique
-  password     String
-  userProfile  UserProfile?
-  LoginSession LoginSession[]
+  id            String         @id @default(uuid())
+  createAt      DateTime?       @default(now())
+  modifyAt      DateTime?       @updatedAt @default(now())
+  username      String         @unique
+  password      String
+  userProfile   UserProfile?
+  loginSessions LoginSession[]
+  books         Book[]
 }
 
 model UserProfile {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  createAt  DateTime? @default(now())
+  modifyAt  DateTime? @updatedAt @default(now())
   firstName String
   lastName  String
-  user      User   @relation(fields: [userId], references: [id])
-  userId    Int    @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
   avatar    String?
 }
 
 model LoginSession {
-  id     String @id
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int
+  id       String   @id
+  createAt DateTime? @default(now())
+  modifyAt DateTime? @updatedAt @default(now())
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String
+}
+
+model Book {
+  id           String         @id @default(uuid())
+  name         String
+  createAt     DateTime?       @default(now())
+  modifyAt     DateTime?       @updatedAt @default(now())
+  description  String
+  authors      User[]
+  chapters     Chapter[]
+}
+
+model Chapter {
+  id        String   @id @default(uuid())
+  createAt  DateTime? @default(now())
+  modifyAt  DateTime? @updatedAt @default(now())
+  name      String
+  index     Int
+  book      Book     @relation(fields: [bookId], references: [id])
+  bookId    String
+  content   String
+  imageUrls String[]
 }

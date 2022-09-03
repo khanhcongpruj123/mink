@@ -1,7 +1,7 @@
 import { Request } from "express";
 
 export interface LoginSessionInfo {
-  id: number;
+  id: string;
   loginSessionId: string;
   username: string;
 }
