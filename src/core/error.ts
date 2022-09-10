@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { ErrorResponse } from "@interfaces/error.interface";
+import { ErrorResponse } from "@models/error.model";
 /**
  * Error model for project
  */
@@ -67,6 +67,36 @@ export const AvatarSizeIsTooLarge = new MinkError(
   StatusCodes.BAD_REQUEST,
   "AVARTAR_SIZE_IS_TOO_LARGE",
   "Avatar size is too large"
+);
+
+export const BookThumbnailIsTooLarge = new MinkError(
+  StatusCodes.BAD_REQUEST,
+  "BOOK_THUMBNAIL_IS_TO_LARGE",
+  "Book thumbnail is too large"
+);
+
+export const CannotUploadThumbnail = new MinkError(
+  StatusCodes.INTERNAL_SERVER_ERROR,
+  "CAN_NOT_UPLOAD_THUMBNAIL",
+  "Can not upload thumbnail"
+);
+
+export const BookThumbnailIsEmpty = new MinkError(
+  StatusCodes.BAD_REQUEST,
+  "BOOK_THUMBNAIL_IS_EMPTY",
+  "Book thumbnail is empty"
+);
+
+export const BookIsExisted = new MinkError(
+  StatusCodes.BAD_GATEWAY,
+  "BOOK_IS_EXISTED",
+  "Book is existed"
+);
+
+export const BookNotFound = new MinkError(
+  StatusCodes.NOT_FOUND,
+  "BOOK_NOT_FOUND",
+  "Book not found"
 );
 
 export const BadRequest = (message: string): MinkError => {

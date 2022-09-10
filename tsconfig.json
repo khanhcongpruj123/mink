@@ -27,7 +27,7 @@
       "@libs/*": ["libs/*"],
       "@cache/*": ["cache/*"],
       "@services/*": ["services/*"],
-      "@interfaces/*": ["interfaces/*"],
+      "@models/*": ["models/*"],
       "@dtos/*": ["dtos/*"]
     }
   },

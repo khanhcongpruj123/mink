@@ -15,7 +15,7 @@
     "test": "mocha -r ts-node/register -r tsconfig-paths/register './tests/**/*.ts'",
     "db:migrate": "prisma migrate dev",
     "db:pull": "prisma pull db",
-    "db:generate": "prisma generate"
+    "db:generate": "rm node_modules/.prisma/client/index.d.ts && prisma generate"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",

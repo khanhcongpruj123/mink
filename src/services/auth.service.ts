@@ -4,7 +4,7 @@ import * as loginSessionService from "./loginsession.service";
 import redisClient from "@cache/redis";
 import { PrismaClient } from "@prisma/client";
 import { UserIsLoggout } from "@core/error";
-import { LoginSessionInfo } from "@interfaces/auth.interface";
+import { LoginSessionInfo } from "models/auth.model";
 
 const prisma = new PrismaClient();
 
