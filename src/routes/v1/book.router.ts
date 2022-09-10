@@ -66,6 +66,7 @@ router.post(
  */
 router.get(
   "/:bookId",
+  // TODO use Basic Router
   async (request: Request, response: Response, next: NextFunction) => {
     const bookId = request.params.bookId;
     if (!bookId) throw BadRequest("Book Id is required!");
@@ -83,6 +84,7 @@ router.get(
  */
 router.get(
   "/",
+  // TODO use Basic Router
   async (request: Request, response: Response, next: NextFunction) => {
     const { keyword, page, pageSize } = request.query;
     Logger.info(`Find books by keyword ${keyword}`);
