@@ -31,13 +31,18 @@ router.post(
     ) => {
       const { name, description } = request.body;
       // eslint-disable-next-line prettier/prettier
-      const thumbnail = _.find(request.files, (f: Express.Multer.File) => f.fieldname === BOOK_THUMBNAIL_FIELD_NAME) as Express.Multer.File;
+      const thumbnail = _.find(
+        request.files,
+        (f: Express.Multer.File) => f.fieldname === BOOK_THUMBNAIL_FIELD_NAME
+      ) as Express.Multer.File;
 
       if (!thumbnail) throw BookThumbnailIsEmpty;
       if (!checkThumbnailSize(thumbnail)) throw BookThumbnailIsTooLarge;
 
       // eslint-disable-next-line prettier/prettier
-      const existBook = await bookService.getBySlug(bookService.extractToSlug(name));
+      const existBook = await bookService.getBySlug(
+        bookService.extractToSlug(name)
+      );
       if (existBook) throw BookIsExisted;
 
       const uploadRes = await imageService.uploadImage(
@@ -62,39 +67,41 @@ router.post(
 );
 
 /**
+ * Get find book by keyword
+ */
+router.get(
+  "/search",
+  BasicRouter(
+    async (request: Request, response: Response, next: NextFunction) => {
+      const { keyword, page, pageSize } = request.query;
+      Logger.info(`Find books by keyword ${keyword}`);
+      const books = await bookService.findByKeyword(
+        keyword as string,
+        page ? Number(page) : undefined,
+        pageSize ? Number(pageSize) : undefined
+      );
+      response.json(books);
+    }
+  )
+);
+
+/**
  * Get book info
  */
 router.get(
   "/:bookId",
-  // TODO use Basic Router
-  async (request: Request, response: Response, next: NextFunction) => {
-    const bookId = request.params.bookId;
-    if (!bookId) throw BadRequest("Book Id is required!");
-    const book = await bookService.getById(bookId);
-    if (!book) throw BookNotFound;
-    Logger.info(`Info book with id: ${bookId}`);
-    response.json({
-      ...book,
-    });
-  }
-);
-
-/**
- * Get find book by keyword
- */
-router.get(
-  "/",
-  // TODO use Basic Router
-  async (request: Request, response: Response, next: NextFunction) => {
-    const { keyword, page, pageSize } = request.query;
-    Logger.info(`Find books by keyword ${keyword}`);
-    const books = await bookService.findByKeyword(
-      keyword as string,
-      page ? Number(page) : undefined,
-      pageSize ? Number(pageSize) : undefined
-    );
-    response.json(books);
-  }
+  BasicRouter(
+    async (request: Request, response: Response, next: NextFunction) => {
+      const bookId = request.params.bookId;
+      if (!bookId) throw BadRequest("Book Id is required!");
+      const book = await bookService.getById(bookId);
+      if (!book) throw BookNotFound;
+      Logger.info(`Info book with id: ${bookId}`);
+      response.json({
+        ...book,
+      });
+    }
+  )
 );
 
 const checkThumbnailSize = (thumbnail: Express.Multer.File) => {

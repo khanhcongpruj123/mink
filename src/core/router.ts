@@ -24,9 +24,7 @@ export const AuthRouter = (handler: RouterHandler) => {
 };
 
 export const BasicRouter = (handler: RouterHandler) => {
-  const router = Router();
-  router.use((req: Request, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     handler(req, res, next).catch((err) => next(err));
-  });
-  return router;
+  };
 };
