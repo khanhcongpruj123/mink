@@ -67,7 +67,7 @@ router.post(
 );
 
 /**
- * Get find book by keyword
+ * Find book by keyword
  */
 router.get(
   "/search",
@@ -86,7 +86,7 @@ router.get(
 );
 
 /**
- * Get book info
+ * Get book details
  */
 router.get(
   "/:bookId",
