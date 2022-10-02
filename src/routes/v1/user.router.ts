@@ -10,7 +10,7 @@ import { AvatarSizeIsTooLarge, CannotUpdateAvartar } from "@core/error";
 const AVATAR_FIELD_NAME = "avatar";
 const AVATAR_LIMIT_SIZE = 100 * 1000; // bytes
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.get(
   "/profile",
