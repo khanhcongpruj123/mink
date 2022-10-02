@@ -3,12 +3,12 @@ import { NextFunction, Request, Response, Router } from "express";
 import { createAccessToken, createRefreshToken } from "@libs/jwt";
 import { AuthRouter, BasicRouter } from "@core/router";
 import { StatusCodes } from "http-status-codes";
-import { RequestWithUser } from "@interfaces/auth.interface";
+import { RequestWithUser } from "models/auth.model";
 import validatorMiddleware from "@middlewares/validator.middleware";
 import { RegisterRequest } from "@dtos/request/register.request";
 import { LoginRequest } from "@dtos/request/login.request";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.post(
   "/auth/register",

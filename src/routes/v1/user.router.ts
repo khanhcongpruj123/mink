@@ -1,22 +1,20 @@
 import * as userProfileService from "@services/userprofile.service";
 import * as userService from "@services/user.service";
 import { NextFunction, Response, Router } from "express";
-import { BasicRouter } from "@core/router";
-import { RequestWithUser } from "@interfaces/auth.interface";
-import express from "express";
+import { AuthRouter, BasicRouter } from "@core/router";
+import { RequestWithUser } from "models/auth.model";
 import _ from "lodash";
 import { getImageURL, uploadImage } from "@services/image.service";
-import multer from "multer";
 import { AvatarSizeIsTooLarge, CannotUpdateAvartar } from "@core/error";
 
 const AVATAR_FIELD_NAME = "avatar";
 const AVATAR_LIMIT_SIZE = 100 * 1000; // bytes
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.get(
-  "/user/profile",
-  BasicRouter(
+  "/profile",
+  AuthRouter(
     async (
       request: RequestWithUser,
       response: Response,
@@ -38,8 +36,8 @@ router.get(
 );
 
 router.patch(
-  "/user/profile",
-  BasicRouter(
+  "/profile",
+  AuthRouter(
     async (
       request: RequestWithUser,
       response: Response,

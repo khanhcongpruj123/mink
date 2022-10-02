@@ -2,13 +2,14 @@
  * This is example for v1 router
  */
 import { Router } from "express";
-import authMiddleware from "@middlewares/auth.middleware";
 import AuthRouter from "@routes/v1/auth.router";
 import UserRouter from "@routes/v1/user.router";
+import BookRouter from "@routes/v1/book.router";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.use(AuthRouter);
-router.use(authMiddleware.authenticate("jwt", { session: false }), UserRouter);
+router.use("/users", UserRouter);
+router.use("/books", BookRouter);
 
 export default router;

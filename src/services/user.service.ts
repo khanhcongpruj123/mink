@@ -76,7 +76,7 @@ export const getUserByUsernameAndPassword = async (
   }
 };
 
-export const getUserById = (userId: number) => {
+export const getUserById = (userId: string) => {
   return prisma.user.findUnique({
     where: {
       id: userId,

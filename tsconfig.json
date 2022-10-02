@@ -27,10 +27,10 @@
       "@libs/*": ["libs/*"],
       "@cache/*": ["cache/*"],
       "@services/*": ["services/*"],
-      "@interfaces/*": ["interfaces/*"],
+      "@models/*": ["models/*"],
       "@dtos/*": ["dtos/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
-  "exclude": ["node_modules", "src/test"]
+  "exclude": ["node_modules", "**/*.test.ts", "**/tests/**"]
 }
