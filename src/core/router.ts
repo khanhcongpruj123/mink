@@ -9,7 +9,7 @@ export type RouterHandler = (
 ) => Promise<void>;
 
 export const AuthRouter = (handler: RouterHandler) => {
-  const router = Router();
+  const router = Router({ mergeParams: true });
   router.use(
     authMiddleware.authenticate("jwt", { session: false }),
     (req: Request, res: Response, next: NextFunction) => {

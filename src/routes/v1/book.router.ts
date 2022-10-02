@@ -12,6 +12,7 @@ import {
   BookThumbnailIsTooLarge,
 } from "@core/error";
 import Logger from "@libs/logger";
+import { Book } from "@prisma/client";
 
 const BOOK_THUMBNAIL_FIELD_NAME = "thumbnail";
 const THUMBNAIL_LIMIT_SIZE = 100 * 1000; // bytes
@@ -104,7 +105,7 @@ router.get(
   )
 );
 
-router.post(
+router.put(
   "/:bookId",
   AuthRouter(
     async (
@@ -123,7 +124,24 @@ router.post(
           (f: Express.Multer.File) => f.fieldname === BOOK_THUMBNAIL_FIELD_NAME
         ) as Express.Multer.File;
         // check valid and update
-        response.status(202);
+        const book = await bookService.getById(bookId);
+        book.name = name;
+        book.description = description;
+        if (thumbnail) {
+          if (checkThumbnailSize(thumbnail)) {
+            const uploadRes = await imageService.uploadImage(
+              thumbnail.buffer,
+              thumbnail.originalname
+            );
+            // check valid thumnail url
+            if (!uploadRes.data.fileName) throw BookThumbnailIsEmpty;
+            book.thumbnailUrl = uploadRes.data.fileName;
+          } else {
+            throw BookThumbnailIsTooLarge;
+          }
+        }
+        await bookService.update(book);
+        response.sendStatus(202);
       } else {
         throw BookNotFound;
       }
