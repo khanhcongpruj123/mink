@@ -104,6 +104,33 @@ router.get(
   )
 );
 
+router.post(
+  "/:bookId",
+  AuthRouter(
+    async (
+      request: RequestWithUser,
+      response: Response,
+      next: NextFunction
+    ) => {
+      const { bookId } = request.params;
+      if (!bookId) throw BadRequest("Book id is required!");
+      // check ownership
+      const isOwner = await bookService.isOwner(request.user, bookId);
+      if (isOwner) {
+        const { name, description } = request.body;
+        const thumbnail = _.find(
+          request.files,
+          (f: Express.Multer.File) => f.fieldname === BOOK_THUMBNAIL_FIELD_NAME
+        ) as Express.Multer.File;
+        // check valid and update
+        response.status(202);
+      } else {
+        throw BookNotFound;
+      }
+    }
+  )
+);
+
 const checkThumbnailSize = (thumbnail: Express.Multer.File) => {
   return thumbnail.size <= THUMBNAIL_LIMIT_SIZE;
 };

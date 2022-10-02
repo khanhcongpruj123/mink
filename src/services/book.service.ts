@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { LoginSessionInfo, RequestWithUser } from "@models/auth.model";
+import { LoginSession, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -84,4 +85,16 @@ export const findByKeyword = (
       createAt: "desc",
     },
   });
+};
+
+export const isOwner = async (user: LoginSessionInfo, bookId: string) => {
+  return prisma.book
+    .findUnique({
+      where: {
+        id: bookId,
+      },
+    })
+    .then((book) => {
+      return book.ownerId == user.id;
+    });
 };
