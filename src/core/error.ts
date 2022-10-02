@@ -88,7 +88,7 @@ export const BookThumbnailIsEmpty = new MinkError(
 );
 
 export const BookIsExisted = new MinkError(
-  StatusCodes.BAD_GATEWAY,
+  StatusCodes.BAD_REQUEST,
   "BOOK_IS_EXISTED",
   "Book is existed"
 );
@@ -97,6 +97,12 @@ export const BookNotFound = new MinkError(
   StatusCodes.NOT_FOUND,
   "BOOK_NOT_FOUND",
   "Book not found"
+);
+
+export const InvalidCommentContent = new MinkError(
+  StatusCodes.BAD_REQUEST,
+  "INVALID_COMMENT_CONTENT",
+  "Comment content must not be null or empty"
 );
 
 export const BadRequest = (message: string): MinkError => {

@@ -19,6 +19,7 @@ model User {
   userProfile   UserProfile?
   loginSessions LoginSession[]
   books         Book[]
+  comments      Comment[]
 }
 
 model UserProfile {
@@ -51,6 +52,7 @@ model Book {
   ownerId      String
   thumbnailUrl String?
   chapters     Chapter[]
+  comments     Comment[]
 
   @@index([slug])
 }
@@ -65,4 +67,18 @@ model Chapter {
   bookId    String
   content   String
   imageUrls String[]
+  comments  Comment[]
+}
+
+model Comment {
+  id       String    @id @default(uuid())
+  createAt DateTime? @default(now())
+  modifyAt DateTime? @default(now()) @updatedAt
+  ownerId  String
+  owner    User      @relation(fields: [ownerId], references: [id])
+  content  String
+  chaterId String?
+  chapter  Chapter?  @relation(fields: [chaterId], references: [id])
+  bookId   String?
+  book     Book?     @relation(fields: [bookId], references: [id])
 }

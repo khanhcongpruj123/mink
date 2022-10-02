@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@babel/eslint-parser": "^7.18.9",
-    "@prisma/client": "^4.1.1",
+    "@prisma/client": "4.1.1",
     "@tsconfig/node16": "^1.0.3",
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.2",

@@ -149,6 +149,41 @@ router.put(
   )
 );
 
+router.post(
+  "/:bookId/comments",
+  AuthRouter(
+    async (
+      request: RequestWithUser,
+      response: Response,
+      next: NextFunction
+    ) => {
+      const { content } = request.body;
+      const { bookId } = request.params;
+
+      Logger.info(`${request.user.id} comment ${bookId}`);
+
+      await bookService.addComment(request.user.id, bookId, content);
+      response.sendStatus(202);
+    }
+  )
+);
+
+router.get(
+  "/:bookId/comments",
+  BasicRouter(
+    async (request: Request, response: Response, next: NextFunction) => {
+      const { bookId } = request.params;
+      const { page, pageSize } = request.query;
+      const comments = await bookService.getComment(
+        bookId,
+        page ? Number(page) : undefined,
+        pageSize ? Number(pageSize) : undefined
+      );
+      response.json(comments);
+    }
+  )
+);
+
 const checkThumbnailSize = (thumbnail: Express.Multer.File) => {
   return thumbnail.size <= THUMBNAIL_LIMIT_SIZE;
 };

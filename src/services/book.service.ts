@@ -1,5 +1,6 @@
-import { LoginSessionInfo, RequestWithUser } from "@models/auth.model";
-import { Book, LoginSession, PrismaClient } from "@prisma/client";
+import { LoginSessionInfo } from "@models/auth.model";
+import { Book, PrismaClient, Comment } from "@prisma/client";
+import * as commentService from "@services/comment.service";
 
 const prisma = new PrismaClient();
 
@@ -74,7 +75,7 @@ export const findByKeyword = (
   pageSize: number | undefined
 ) => {
   return prisma.book.findMany({
-    skip: page ? page * pageSize : undefined,
+    skip: page && pageSize ? page * pageSize : undefined,
     take: pageSize,
     where: {
       slug: {
@@ -98,6 +99,7 @@ export const isOwner = async (user: LoginSessionInfo, bookId: string) => {
       return book.ownerId == user.id;
     });
 };
+
 export const update = (book: Book) => {
   return prisma.book.update({
     where: {
@@ -105,4 +107,16 @@ export const update = (book: Book) => {
     },
     data: book,
   });
+};
+
+export const getComment = (
+  bookId: string,
+  page?: number,
+  pageSize?: number
+) => {
+  return commentService.getBookComments(bookId, page, pageSize);
+};
+
+export const addComment = (userId: string, bookId: string, content: string) => {
+  return commentService.addBookComment(userId, bookId, content);
 };
