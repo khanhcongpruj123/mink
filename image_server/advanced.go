@@ -31,6 +31,8 @@ import (
 	_ "github.com/pierrre/imageserver/image/jpeg"
 	_ "github.com/pierrre/imageserver/image/png"
 	_ "github.com/pierrre/imageserver/image/tiff"
+
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -52,10 +54,31 @@ func parseFlags() {
 }
 
 func startHTTPServer() {
+	log.WithField("address", flagHTTP).Info("Server start")
 	err := http.ListenAndServe(flagHTTP, newHTTPHandler())
 	if err != nil {
 		panic(err)
 	}
+}
+
+func WithLogging(h http.Handler) http.Handler {
+	logFn := func(rw http.ResponseWriter, r *http.Request) {
+			start := time.Now()
+
+			uri := r.RequestURI
+			method := r.Method
+			h.ServeHTTP(rw, r) // serve the original request
+
+			duration := time.Since(start)
+
+			// log request details
+			log.WithFields(log.Fields{
+					"uri":      uri,
+					"method":   method,
+					"duration": duration,
+			})
+	}
+	return http.HandlerFunc(logFn)
 }
 
 func newHTTPHandler() http.Handler {
@@ -66,34 +89,34 @@ func newHTTPHandler() http.Handler {
 }
 
 func uploadFile(w http.ResponseWriter, r *http.Request) {
-    r.ParseMultipartForm(10 << 20)
-    file, handler, err := r.FormFile("file")
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-    defer file.Close()
+	r.ParseMultipartForm(10 << 20)
+	file, handler, err := r.FormFile("file")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
 
-    // Create a temporary file within our temp-images directory that follows
-    // a particular naming pattern
+	// Create a temporary file within our temp-images directory that follows
+	// a particular naming pattern
 	newFileName := uuid.New().String() + filepath.Ext(handler.Filename)
-    uploadFile, err := os.Create("./upload/" + newFileName)
-    if err != nil {
-        fmt.Println(err)
-    }
-    defer uploadFile.Close()
+	uploadFile, err := os.Create("./upload/" + newFileName)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer uploadFile.Close()
 
-    // read all of the contents of our uploaded file into a
-    // byte array
-    fileBytes, err := ioutil.ReadAll(file)
-    if err != nil {
-        fmt.Println(err)
-    }
-    // write this byte array to our temporary file
-    uploadFile.Write(fileBytes)
-    // return that we have successfully uploaded our file!
-    w.Header().Set("Content-Type", "application/json")
-	fmt.Fprint(w, "{\"fileName\": \"" + newFileName +"\"}")
+	// read all of the contents of our uploaded file into a
+	// byte array
+	fileBytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println(err)
+	}
+	// write this byte array to our temporary file
+	uploadFile.Write(fileBytes)
+	// return that we have successfully uploaded our file!
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(w, "{\"fileName\": \""+newFileName+"\"}")
 }
 
 func newImageHTTPHandler() http.Handler {
@@ -117,6 +140,7 @@ func newImageHTTPHandler() http.Handler {
 	handler = &imageserver_http.CacheControlPublicHandler{
 		Handler: handler,
 	}
+	WithLogging(handler)
 	return handler
 }
 

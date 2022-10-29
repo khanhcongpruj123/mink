@@ -8,7 +8,7 @@ import validatorMiddleware from "@middlewares/validator.middleware";
 import { RegisterRequest } from "@dtos/request/register.request";
 import { LoginRequest } from "@dtos/request/login.request";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.post(
   "/auth/register",

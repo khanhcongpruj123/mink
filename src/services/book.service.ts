@@ -1,5 +1,5 @@
 import { LoginSessionInfo, RequestWithUser } from "@models/auth.model";
-import { LoginSession, PrismaClient } from "@prisma/client";
+import { Book, LoginSession, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -97,4 +97,12 @@ export const isOwner = async (user: LoginSessionInfo, bookId: string) => {
     .then((book) => {
       return book.ownerId == user.id;
     });
+};
+export const update = (book: Book) => {
+  return prisma.book.update({
+    where: {
+      id: book.id,
+    },
+    data: book,
+  });
 };

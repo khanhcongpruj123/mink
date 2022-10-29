@@ -9,7 +9,7 @@
     "postinstall": "husky install",
     "lint": "eslint . --ext .ts",
     "build": "tsc && tsc-alias",
-    "start": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"src/**/*.spec.ts\" --exec \"ts-node -r tsconfig-paths/register ./src/server.ts\"",
+    "start": "ts-node -r tsconfig-paths/register ./src/server.ts",
     "migrate": "prisma migrate dev",
     "lint:fix": "eslint . --ext .ts --fix",
     "test": "jest --detectOpenHandles",
